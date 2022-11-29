@@ -1,20 +1,243 @@
+*, *::before, *::after { box-sizing: border-box; }
+/*----------general styles------*/
 body {
     margin: 0;
-    background: url("https://images.unsplash.com/photo-1499028344343-cd173ffc68a9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+    font-size: 16px;
+    font-family: 'Smythe', cursive;
+    line-height: 1.2;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+header{
+    background: url("https://images.unsplash.com/photo-1571091655789-405eb7a3a3a8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1172&q=80");
     background-size: cover;
     color: #fff;
+    height: 30vh;
+    width: 100%;
+    padding-top: 1em;
+    padding-left: 1em;
+}
+
+/*-----------Typography----------*/
+
+h1 {
+    font-size: 2rem;
+    margin: 0;
+}
+
+h2 {
+    font-size: 1.25em;
+    margin-bottom: 0 ;
+}
+p{
+    margin-top: 0;
+    width: 30%;
+}
+main  {
+    color: rgb(43, 38, 38);
+}
+
+@media (min-width: 600px) {
+    h1 {
+        font-size: 2.8rem;
+    }
+    p {
+        width: 100%;
+    }
+    header {
+        padding-left: 2em;
+    }
+    .subtitle {
+        font-size: 1.3rem;
+    }
+}
+/*-------item-divs-----------*/
+
+#menu-list {
+    display: flex;
 }
 
 .list-item,
+.lists,
 .item-details {
     display: flex;
     gap: 1em;
 }
+.lists {
+    justify-content: space-between;
+    padding: 2em 0;
+}
+
+/*----items-----*/
 
 .item-details {
     flex-direction: column;
 }
 
-.item-pic {
-    font-size: 50px;
+.item-name {
+    font-size: 1.75rem;
+    margin-top: 0;
 }
+.item-pic {
+    font-size: 70px;
+}
+.price,
+.ingredients {
+    margin: 0;
+}
+
+.ingredients {
+color: #8B8B8B;
+}
+
+.price {
+    font-size: 1.25rem;
+}
+
+/*----------icon-----------*/
+
+.icon-container {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    justify-content: center;
+    border: 1px solid #8B8B8B;
+    border-radius: 50%;
+    margin-top: 5px;
+    cursor: pointer;
+}
+.plus-icon {
+    font-size: 1.5em;
+    align-self: center;
+    opacity: 0.6;
+}
+.plus-icon:hover {
+    opacity: 1;
+}
+/*----------divider-------*/
+
+.divider {
+    height: 1px;
+    background: #D2D2D2;
+
+}
+/*Grouping styles*/
+
+#menu-list,
+#order-list {
+    flex-direction: column;
+    padding: 2em 1em;
+}
+
+#order-list,
+.order-items,
+.order-item,
+#payment-form,
+#total {
+    display: flex;
+}
+
+/*----------order-setion---------*/
+.your-order,
+.total-price-text {
+    text-align: center;
+    font-size: 1.75em;
+}
+#order-list {
+    /* visibility: hidden; */
+    flex-direction: column;
+}
+.order-item {
+    align-items: center;
+    gap: 5px;
+}
+#remove-btn {
+    border: 0;
+    background: none;
+    font-size: 0.75rem ;
+    align-self: center;
+    color: #8B8B8B;
+}
+.order-items,
+#total {
+    justify-content: space-between;
+
+}
+
+.order-price{
+    text-align: end;
+}
+
+.order-items {
+    margin-bottom: 0.625em;
+}
+
+
+/*Buttons*/
+.btn {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background: #16DB99;
+    font-size: 1em;
+    width: 100%;
+    padding: 1em;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 1px;
+    margin: 0 auto;
+}
+
+/*Modal*/
+
+#modal-container {
+    display: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px 2px #666;
+    background: whitesmoke;
+    width: 350px;
+    height: 400px;
+    margin: auto;
+    position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding-top: 3em;
+}
+#payment-form {
+    gap: 1em;
+    flex-direction: column;
+    padding: 1em;
+}
+
+.form-title {
+    font-size: 1.5em;
+    align-self: center;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+.input-field {
+    padding: 0.5em ;
+    width: 100%;
+}
+#payment-btn{
+ margin-top: 1em;
+ }
+
+ /*msg-section*/
+
+ #msg-section{
+    display: none;
+    background:#ECFDF5;
+    padding: 2em;
+    margin-top: 2em;
+    }
+
+ .message {
+    color: #065F46;
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 0;
+ }
