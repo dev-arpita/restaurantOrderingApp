@@ -136,18 +136,18 @@ color: #8B8B8B;
 .order-items,
 .order-item,
 #payment-form,
-#total {
+#total,
+.each-item {
     display: flex;
 }
 
 /*----------order-setion---------*/
-.your-order,
-.total-price-text {
+.your-order{
     text-align: center;
     font-size: 1.75em;
 }
-#order-list {
-    /* visibility: hidden; */
+#order-list,
+.order-items {
     flex-direction: column;
 }
 .order-item {

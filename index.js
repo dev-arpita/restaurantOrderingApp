@@ -1,7 +1,7 @@
 import { menuArray } from "./data.js"
 
 const menuList = document.getElementById("menu-list")
-const orderList = document.getElementById("order-list")
+
 document.addEventListener("click", function(e){
     if(e.target.dataset.add) {
        addToCart(e.target.dataset.add)
@@ -15,43 +15,90 @@ document.addEventListener("click", function(e){
     else if(e.target.id === "payment-form") {
         e.preventDefault()
     }
-    else if(e.target.id === "close-modal") {
-        closeModal()
-    }
+
 })
+
+/*Proceed payment*/
 
 function ProceedPayment() {
     setTimeout(function(){
     document.getElementById("modal-container").style.display ="inline"
     }, 1500)
 }
-function closeModal() {
-    document.getElementById("modal-container").style.display ="none"
-}
+
+/*Remove items from cart */
+let orderArray = []
+const priceArray = []
+let isSelected= false
+// let isRemoved = true
 function removeItemFromCart(itemId){
-      const targetEachItem = menuArray.filter(function(item){
-        return item.id == itemId
-    })[0]
-    console.log(targetEachItem)
+        const targetEachItem = menuArray.filter(function(item){
+            return item.id == itemId
+        })[0]
+        // console.log(targetEachItem)
+        orderArray.push(targetEachItem)
+     if(isSelected = true) {
+    const removeItem = orderArray.shift()
+        // console.log( removeItem.shift())
+    return renderOrderList(removeItem)
+    }
+
 }
+
+
+/*Add items*/
+
 function addToCart(itemId) {
     const targetEachItem = menuArray.filter(function(item){
         return item.id == itemId
     })[0]
- console.log(targetEachItem)
+    getOrderArray(targetEachItem)
   }
 
-function totalItemPrice(itemId) {
-  const targetEachItem = menuArray.filter(function(item){
-        return item.id == itemId
-    })[0]
-    console.log(targetEachItem.price)
+/*Render oreder item*/
+
+function getOrderArray(item){
+    if(!isSelected) {
+    orderArray.push(item)
+    renderOrderList(orderArray)
+    }
 }
-// console.log(totalItemPrice())
+
+function renderOrderList(item) {
+        let orderList =``
+        let totalPriceList = ``
+    item.forEach(function(item){
+        orderList += `
+            <div class="order-items">
+                <div class="each-item">
+                    <div class="order-item">
+                        <h2 class="item-name">${item.name}</h2>
+                        <button class="remove-btn
+                        "id="remove-btn-${item.id}" data-remove="${item.id}">remove</button>
+                    </div>
+                    <p class="price order-price">$${item.price}</p>
+                </div>
+            `
+
+        totalPriceList = `
+                <div id="total">
+                    <p class="total-price-text">Total Price:</p>
+                    <p class="price order-price" id="order-price">$${item.price}</p>
+                </div>
+            `
+
+            console.log(totalPriceList)
+    })
+
+
+   document.getElementById("order-list").innerHTML = orderList + totalPriceList
+}
+
+/*Render menu list */
 
 function getItems() {
      let menuItem = ""
-for(let item of menuArray) {
+menuArray.forEach(function(item){
     menuItem +=
      `
     <div class="lists">
@@ -69,39 +116,13 @@ for(let item of menuArray) {
     </div>
         <div class="divider"></div>
     `
-}
-   return menuItem
-}
-
-function getOrderList() {
-
-    let orderList =``
-
-    let totalPrice= ``
-    menuArray.forEach( function(item) {
-
-    totalPrice +=
-    `
-     <div id="total">
-            <h2 class="total-price-text">Total Price:</h2>
-            <p class="price order-price">$${item.price}</p>
-        </div>
-    `
     })
 
-    orderList +=
-        `
-        <div class="order-items">
-            <div class="order-item">
-                <h2 class="item-name">${item.name}</h2>
-                <button id="remove-btn-${item.id}" data-remove="${item.id}">remove</button>
-            </div>
-            <p class="price order-price">$${item.price}</p>
-        </div>
-        ${totalPrice}
-        `
-    return orderList
+   menuList.innerHTML =  menuItem
 }
+getItems()
+
+/*Thanks Giving message */
 
 function thanksMsg() {
     let msg =
@@ -117,6 +138,6 @@ function renderItems(){
     orderList.innerHTML = getOrderList()
     document.getElementById("msg-section").innerHTML = thanksMsg()
 }
-renderItems()
+// renderItems()
 
 
