@@ -31,18 +31,17 @@ function ProceedPayment() {
 let orderArray = []
 const priceArray = []
 let isSelected= false
-// let isRemoved = true
+
 function removeItemFromCart(itemId){
         const targetEachItem = menuArray.filter(function(item){
             return item.id == itemId
         })[0]
-           console.log(targetEachItem.name)
     orderArray.slice(targetEachItem.id)
      if(!isSelected) {
-        // if(orderArray.includes(targetEachItem)){
-
-        // console.log(orderArray.splice(targetEachItem))
-        // }
+        if(orderArray.includes(targetEachItem)){
+            let indexItem = orderArray.indexOf(targetEachItem)
+            return orderArray.splice(indexItem)
+        }
         return renderOrderList()
     }
 }
@@ -89,7 +88,6 @@ function renderOrderList() {
                 </div>
             `
 
-            // console.log(totalPriceList)
     })
 
 
