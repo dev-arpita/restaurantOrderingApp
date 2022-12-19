@@ -1,3 +1,4 @@
+
 import { menuArray } from "./data.js"
 
 const menuList = document.getElementById("menu-list")
@@ -35,14 +36,15 @@ function removeItemFromCart(itemId){
         const targetEachItem = menuArray.filter(function(item){
             return item.id == itemId
         })[0]
-        // console.log(targetEachItem)
-        orderArray.push(targetEachItem)
-     if(isSelected = true) {
-    const removeItem = orderArray.shift()
-        // console.log( removeItem.shift())
-    return renderOrderList(removeItem)
-    }
+           console.log(targetEachItem.name)
+    orderArray.slice(targetEachItem.id)
+     if(!isSelected) {
+        // if(orderArray.includes(targetEachItem)){
 
+        // console.log(orderArray.splice(targetEachItem))
+        // }
+        return renderOrderList()
+    }
 }
 
 
@@ -60,21 +62,21 @@ function addToCart(itemId) {
 function getOrderArray(item){
     if(!isSelected) {
     orderArray.push(item)
-    renderOrderList(orderArray)
+    renderOrderList()
     }
 }
 
-function renderOrderList(item) {
+function renderOrderList() {
         let orderList =``
         let totalPriceList = ``
-    item.forEach(function(item){
+    orderArray.forEach(function(item){
         orderList += `
             <div class="order-items">
                 <div class="each-item">
                     <div class="order-item">
                         <h2 class="item-name">${item.name}</h2>
                         <button class="remove-btn
-                        "id="remove-btn-${item.id}" data-remove="${item.id}">remove</button>
+                        "id="remove-btn" data-remove="${item.id}">remove</button>
                     </div>
                     <p class="price order-price">$${item.price}</p>
                 </div>
@@ -87,7 +89,7 @@ function renderOrderList(item) {
                 </div>
             `
 
-            console.log(totalPriceList)
+            // console.log(totalPriceList)
     })
 
 
