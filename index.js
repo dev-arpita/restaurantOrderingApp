@@ -30,6 +30,7 @@ function ProceedPayment() {
 /*Remove items from cart */
 let orderArray = []
 const priceArray = []
+let price = []
 let isSelected= false
 
 function removeItemFromCart(itemId){
@@ -39,36 +40,60 @@ function removeItemFromCart(itemId){
     orderArray.slice(targetEachItem.id)
      if(!isSelected) {
         if(orderArray.includes(targetEachItem)){
-            let indexItem = orderArray.indexOf(targetEachItem)
+            const indexItem = orderArray.indexOf(targetEachItem)
             return orderArray.splice(indexItem)
         }
         return renderOrderList()
     }
 }
-
-
+// function totalAmount(item) {
+//     if(!isSelected) {
+//     priceArray.push(item)
+//     let sumItems = priceArray.reduce((total, num) => total + num, 0)
+//     renderOrderList()
+//     return sumItems
+//     }
+//     return item
+// }
 /*Add items*/
 
 function addToCart(itemId) {
     const targetEachItem = menuArray.filter(function(item){
         return item.id == itemId
     })[0]
-    getOrderArray(targetEachItem)
-  }
+
+     if(!isSelected) {
+        orderArray.push(targetEachItem)
+        priceArray.push(targetEachItem.price)
+         renderOrderList()
+       price = totalAmount(priceArray)
+
+        }
+       console.log(totalAmount(priceArray))
+     }
+
+     function totalAmount(item) {
+        return item.reduce((total, num) => total + num, 0)
+     }
+
+
+
 
 /*Render oreder item*/
 
-function getOrderArray(item){
-    if(!isSelected) {
-    orderArray.push(item)
-    renderOrderList()
-    }
-}
+// function getOrderArray(item){
+//     if(!isSelected) {
+//     orderArray.push(item)
+//    renderOrderList()
+//     }
+// }
 
 function renderOrderList() {
         let orderList =``
         let totalPriceList = ``
+        let renderOrderSection =``
     orderArray.forEach(function(item){
+
         orderList += `
             <div class="order-items">
                 <div class="each-item">
@@ -82,16 +107,21 @@ function renderOrderList() {
             `
 
         totalPriceList = `
+                 <div class="divider"></div>
                 <div id="total">
                     <p class="total-price-text">Total Price:</p>
-                    <p class="price order-price" id="order-price">$${item.price}</p>
+                    <p class="price order-price" id="order-price">$${price}</p>
                 </div>
             `
 
+ renderOrderSection = `
+        <h2 class="your-order">Your order</h2>
+            <div id="order-list">${orderList}</div>
+            <div id="order-list">${totalPriceList}</div>
+            <button class="btn" id="complete-btn">Complete Order</button>
+            `
     })
-
-
-   document.getElementById("order-list").innerHTML = orderList + totalPriceList
+   document.getElementById("order-section").innerHTML = renderOrderSection
 }
 
 /*Render menu list */
