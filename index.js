@@ -41,20 +41,17 @@ function removeItemFromCart(itemId){
      if(!isSelected) {
         if(orderArray.includes(targetEachItem)){
             const indexItem = orderArray.indexOf(targetEachItem)
-            return orderArray.splice(indexItem)
+             orderArray.splice(indexItem)
+             priceArray.push(targetEachItem.price)
+            price = totalAmountReduce(priceArray)
         }
         return renderOrderList()
     }
 }
-// function totalAmount(item) {
-//     if(!isSelected) {
-//     priceArray.push(item)
-//     let sumItems = priceArray.reduce((total, num) => total + num, 0)
-//     renderOrderList()
-//     return sumItems
-//     }
-//     return item
-// }
+function totalAmountReduce(item) {
+        return item.reduce((total, num) => {return num - total} )
+}
+
 /*Add items*/
 
 function addToCart(itemId) {
@@ -65,28 +62,17 @@ function addToCart(itemId) {
      if(!isSelected) {
         orderArray.push(targetEachItem)
         priceArray.push(targetEachItem.price)
-         renderOrderList()
-       price = totalAmount(priceArray)
-
+        price = totalAmountAdd(priceArray)
         }
-       console.log(totalAmount(priceArray))
+        renderOrderList()
      }
 
-     function totalAmount(item) {
-        return item.reduce((total, num) => total + num, 0)
-     }
+function totalAmountAdd(item) {
+        return item.reduce((total, num) => {return total+ num} )
 
-
-
+}
 
 /*Render oreder item*/
-
-// function getOrderArray(item){
-//     if(!isSelected) {
-//     orderArray.push(item)
-//    renderOrderList()
-//     }
-// }
 
 function renderOrderList() {
         let orderList =``
