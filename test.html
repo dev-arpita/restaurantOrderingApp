@@ -1,0 +1,58 @@
+<html>
+
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Smythe&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/f4c08ca399.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="index.css">
+        <title>Sip and Snack</title>
+
+        <script src="test.js" type="module"></script>
+        <script src="cart.js"></script>
+
+    </head>
+
+    <body>
+        <div class="container">
+
+            <header>
+                <h1>Sip and Snack</h1>
+                <p class="subtitle">The best burgers and pizzas in town.</p>
+            </header>
+
+            <main>
+                <div id="menu-list"></div>
+            </main>
+
+            <section id="order-section">
+
+            </section>
+            <div id="msg-section"></div>
+
+        </div>
+        <div id="modal-container">
+
+            <form id="payment-form" action="">
+                <h2 class="form-title">Enter card details</h2>
+                <label for="user-name" aria-label="Enter your name">
+                    <input type="text" name="user-name" id="user-name" class="input-field" placeholder="Enter your name"
+                        required>
+                </label>
+                <label for="ccn" aria-label="Enter card number">
+                    <input class="input-field" id="ccn" type="text" inputmode="numeric required"
+                        pattern="[0-9\s]{13,19}" maxlength="19" placeholder="xxxx xxxx xxxx xxxx" required>
+                </label>
+                <label for="cvv" aria-label="Enter CVV">
+                    <input id="cvv" class="input-field" type="password" maxlength="3" placeholder="CVV" required>
+                </label>
+                <button type="submit" class="btn" id="payment-btn">Pay</button>
+            </form>
+
+        </div>
+
+        </div>
+
+    </body>
+
+</html>

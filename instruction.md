@@ -20,3 +20,8 @@
 5.⚠️ The strict equality operator (===) will return false unless you are comparing the same data types. For example: console.log(1 === ‘1’) // false The first 1 is a number, the second ‘1’ (with inverted commas) is a string. You can check a data type using typeof and then google how to change, say, a string to a number or vice versa if necessary!
 
 /_ STREATCH GOALS_/
+
+1. quantity btn design
+2. add and remove function recheck
+3. order msg render
+4.

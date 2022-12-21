@@ -1,23 +1,31 @@
 
 import { menuArray } from "./data.js"
 
-const menuList = document.getElementById("menu-list")
+const paymentForm = document.getElementById("payment-form")
 
 document.addEventListener("click", function(e){
     if(e.target.dataset.add) {
        addToCart(e.target.dataset.add)
     }
-    else  if(e.target.dataset.remove) {
+    else if(e.target.dataset.remove) {
        removeItemFromCart(e.target.dataset.remove)
     }
+
     else if(e.target.id === "complete-btn") {
         ProceedPayment()
     }
-    else if(e.target.id === "payment-form") {
+    else if(e.target.id === "payment-btn") {
         e.preventDefault()
+        thanksMsg()
+
+
     }
 
 })
+
+let orderArray = []
+const priceArray = []
+let price = []
 
 /*Proceed payment*/
 
@@ -26,30 +34,28 @@ function ProceedPayment() {
     document.getElementById("modal-container").style.display ="inline"
     }, 1500)
 }
+/*Thanks Giving message */
 
-/*Remove items from cart */
-let orderArray = []
-const priceArray = []
-let price = []
-let isSelected= false
+function thanksMsg() {
 
-function removeItemFromCart(itemId){
-        const targetEachItem = menuArray.filter(function(item){
-            return item.id == itemId
-        })[0]
-    orderArray.slice(targetEachItem.id)
-     if(!isSelected) {
-        if(orderArray.includes(targetEachItem)){
-            const indexItem = orderArray.indexOf(targetEachItem)
-             orderArray.splice(indexItem)
-             priceArray.push(targetEachItem.price)
-            price = totalAmountReduce(priceArray)
-        }
-        return renderOrderList()
-    }
-}
-function totalAmountReduce(item) {
-        return item.reduce((total, num) => {return num - total} )
+     const thanksMsg = document.getElementById("msg-section")
+
+
+    const paymentFormData = new FormData(paymentForm)
+    const userName = paymentFormData.get('user-name')
+    console.log(userName)
+    setTimeout(function(){
+    thanksMsg.style.display = "block"
+      thanksMsg.innerHTML =
+    `<p class="message">
+    Thanks, ${userName}! Your order is on it's way!
+    </p>
+    `
+    }, 1500)
+
+     document.getElementById("order-section").style.display ="none"
+     document.getElementById("modal-container").style.display ="none"
+
 }
 
 /*Add items*/
@@ -59,17 +65,37 @@ function addToCart(itemId) {
         return item.id == itemId
     })[0]
 
-     if(!isSelected) {
+     if(!orderArray.includes(targetEachItem)) {
         orderArray.push(targetEachItem)
         priceArray.push(targetEachItem.price)
-        price = totalAmountAdd(priceArray)
+        price = priceArray.reduce(totalAmountAdd)
+        }
+
+    renderOrderList()
+ }
+
+function totalAmountAdd(total, num) {
+        return  total + num
+}
+/*Remove items from cart */
+
+function removeItemFromCart(itemId){
+        console.log('item:', itemId);
+        const targetEachItem = menuArray.filter(function(item){
+            return item.id == itemId
+        })[0]
+        console.log('targetEachItem', targetEachItem);
+        if(orderArray.includes(targetEachItem)){
+            const indexItem = orderArray.indexOf(targetEachItem)
+            console.log('indexItem', indexItem);
+            orderArray.splice(indexItem)
+            price = priceArray.reduce(totalAmountReduce)
+            console.log( priceArray.splice(indexItem))
         }
         renderOrderList()
-     }
-
-function totalAmountAdd(item) {
-        return item.reduce((total, num) => {return total+ num} )
-
+}
+function totalAmountReduce(total, num) {
+        return total - num
 }
 
 /*Render oreder item*/
@@ -85,13 +111,16 @@ function renderOrderList() {
                 <div class="each-item">
                     <div class="order-item">
                         <h2 class="item-name">${item.name}</h2>
-                        <button class="remove-btn
-                        "id="remove-btn" data-remove="${item.id}">remove</button>
+                        <button class="remove-btn" id="remove-btn-${item.id}"
+                         data-remove="${item.id}">remove</button>
                     </div>
-                    <p class="price order-price">$${item.price}</p>
-                </div>
-            `
 
+                <p class="price order-price">$${item.price}</p>
+
+                </div>
+
+            </div>
+            `
         totalPriceList = `
                  <div class="divider"></div>
                 <div id="total">
@@ -102,8 +131,9 @@ function renderOrderList() {
 
  renderOrderSection = `
         <h2 class="your-order">Your order</h2>
-            <div id="order-list">${orderList}</div>
-            <div id="order-list">${totalPriceList}</div>
+            <div id="order-list">
+                <div>${orderList}</div>
+                <div>${totalPriceList}</div>
             <button class="btn" id="complete-btn">Complete Order</button>
             `
     })
@@ -113,8 +143,8 @@ function renderOrderList() {
 /*Render menu list */
 
 function getItems() {
-     let menuItem = ""
-menuArray.forEach(function(item){
+    let menuItem = ""
+    menuArray.forEach(function(item){
     menuItem +=
      `
     <div class="lists">
@@ -127,33 +157,16 @@ menuArray.forEach(function(item){
             </div>
         </div>
          <span class="icon-container">
-                <i class="fa-solid fa-plus plus-icon" data-add="${item.id}"></i>
+                <i class="fa-solid fa-plus plus-icon" id="add-btn-${item.id}" data-add="${item.id}"></i>
         </span>
     </div>
         <div class="divider"></div>
     `
     })
 
-   menuList.innerHTML =  menuItem
+     document.getElementById("menu-list").innerHTML =  menuItem
 }
 getItems()
-
-/*Thanks Giving message */
-
-function thanksMsg() {
-    let msg =
-    `<p class="message">
-    Thanks, James! Your order is on it's way!
-    </p>
-    `
-    return msg
-}
-
-function renderItems(){
-    menuList.innerHTML = getItems()
-    orderList.innerHTML = getOrderList()
-    document.getElementById("msg-section").innerHTML = thanksMsg()
-}
-// renderItems()
+renderOrderList()
 
 

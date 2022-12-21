@@ -161,6 +161,10 @@ color: #8B8B8B;
     align-self: center;
     color: #8B8B8B;
 }
+.each-item{
+    justify-content: start;
+    gap: 1rem;
+}
 .order-items,
 #total {
     justify-content: space-between;
@@ -233,7 +237,7 @@ color: #8B8B8B;
     display: none;
     background:#ECFDF5;
     padding: 2em;
-    margin-top: 2em;
+    margin: 2em auto;
     }
 
  .message {
