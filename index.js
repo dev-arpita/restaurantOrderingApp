@@ -16,10 +16,6 @@ document.addEventListener("click", function(e){
     else if(e.target.id === "complete-btn") {
         ProceedPayment()
     }
-    else if(e.target.id === "payment-btn") {
-
-        thanksMsg()
-    }
 
 })
 
@@ -35,9 +31,8 @@ paymentForm.addEventListener("submit", function(e) {
    e.preventDefault()
     const thanksMsg = document.getElementById("msg-section")
     const paymentFormData = new FormData(paymentForm)
-    console.log(paymentForm)
+
     const userName = paymentFormData.get('user-name')
-    console.log(userName)
 
     setTimeout(function(){
 
@@ -56,20 +51,24 @@ paymentForm.addEventListener("submit", function(e) {
 /*Add items*/
 
 function addToCart(itemId) {
-   const cartItem =  orderItems.filter(item => {return item.id == itemId})
+   const cartItem =  orderItems.filter(item =>  item.id == itemId)
      if(cartItem.length > 0) {
         return;
     }
     orderItems.push(menuArray[itemId])
     renderOrderList(orderItems)
+
  }
+
 
 /*Remove items from cart */
 
 function removeItemFromCart(itemId){
     console.log( orderItems.splice(itemId, 1))
     renderOrderList(orderItems)
+
 }
+
 
 /*Render oreder item*/
 
@@ -80,6 +79,8 @@ function renderOrderList(orderItems) {
         let renderOrderSection =``
     orderItems.forEach((item, index) => {
         totalPrice = totalPrice + item.price
+
+
         orderList += `
             <div class="order-items">
                 <div class="each-item">
@@ -87,6 +88,7 @@ function renderOrderList(orderItems) {
                         <h2 class="item-name">${item.name}</h2>
                         <button class="remove-btn" id="remove-btn-${item.id}"
                          data-remove="${index}">remove</button>
+
                     </div>
 
                 <p class="price order-price">$${item.price}</p>
