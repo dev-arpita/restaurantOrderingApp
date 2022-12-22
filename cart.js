@@ -26,20 +26,18 @@ const menuArray = [
     }
 ]
 
-
-
 function addToCart(itemId) {
     console.log('beforecheckcartItems', cartItems);
-    console.log('filter', cartItems.filter(item => {
+     cartItems.filter(item => {
         console.log('item id', item.id)
         return item.id === itemId
-    }));
-    if (cartItems.filter(item => item.id === itemId).length > 0) {
+    });
+    // console.log("cartItems",cartItems)
+    if(cartItems.filter(item => item.id === itemId).length > 0) {
         return;
     }
-
-    cartItems.push(menuArray[itemId]);
-    console.log('cartItems', cartItems);
+  cartItems.push(menuArray[itemId])
+    // console.log('cartItems', cartItems);
     renderOrderList(cartItems);
 }
 function removeFromCart(itemId) {

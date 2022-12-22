@@ -1,5 +1,7 @@
 
 import { menuArray } from "./data.js"
+console.log("menu", menuArray)
+const orderItems = []
 
 const paymentForm = document.getElementById("payment-form")
 
@@ -17,15 +19,9 @@ document.addEventListener("click", function(e){
     else if(e.target.id === "payment-btn") {
         e.preventDefault()
         thanksMsg()
-
-
     }
 
 })
-
-let orderArray = []
-const priceArray = []
-let price = []
 
 /*Proceed payment*/
 
@@ -61,58 +57,39 @@ function thanksMsg() {
 /*Add items*/
 
 function addToCart(itemId) {
-    const targetEachItem = menuArray.filter(function(item){
-        return item.id == itemId
-    })[0]
-
-     if(!orderArray.includes(targetEachItem)) {
-        orderArray.push(targetEachItem)
-        priceArray.push(targetEachItem.price)
-        price = priceArray.reduce(totalAmountAdd)
+     orderItems.filter(item => {return item.id === itemId});
+     if(orderItems.filter(item => item.id === itemId).length > 0) {
+        return;
         }
-
-    renderOrderList()
+       orderItems.push(menuArray[itemId])
+        // console.log("orderArray",orderItems)
+        renderOrderList(orderItems)
  }
 
-function totalAmountAdd(total, num) {
-        return  total + num
-}
 /*Remove items from cart */
 
 function removeItemFromCart(itemId){
-        console.log('item:', itemId);
-        const targetEachItem = menuArray.filter(function(item){
-            return item.id == itemId
-        })[0]
-        console.log('targetEachItem', targetEachItem);
-        if(orderArray.includes(targetEachItem)){
-            const indexItem = orderArray.indexOf(targetEachItem)
-            console.log('indexItem', indexItem);
-            orderArray.splice(indexItem)
-            price = priceArray.reduce(totalAmountReduce)
-            console.log( priceArray.splice(indexItem))
-        }
-        renderOrderList()
+    console.log( orderItems.splice(itemId, 1))
+    renderOrderList(orderItems)
 }
-function totalAmountReduce(total, num) {
-        return total - num
-}
+
 
 /*Render oreder item*/
 
-function renderOrderList() {
+function renderOrderList(orderItems) {
+    let totalPrice = 0;
         let orderList =``
         let totalPriceList = ``
         let renderOrderSection =``
-    orderArray.forEach(function(item){
-
+    orderItems.forEach((item, index) => {
+        totalPrice = totalPrice + item.price
         orderList += `
             <div class="order-items">
                 <div class="each-item">
                     <div class="order-item">
                         <h2 class="item-name">${item.name}</h2>
                         <button class="remove-btn" id="remove-btn-${item.id}"
-                         data-remove="${item.id}">remove</button>
+                         data-remove="${index}">remove</button>
                     </div>
 
                 <p class="price order-price">$${item.price}</p>
@@ -125,7 +102,7 @@ function renderOrderList() {
                  <div class="divider"></div>
                 <div id="total">
                     <p class="total-price-text">Total Price:</p>
-                    <p class="price order-price" id="order-price">$${price}</p>
+                    <p class="price order-price" id="order-price">$${totalPrice}</p>
                 </div>
             `
 
@@ -167,6 +144,6 @@ function getItems() {
      document.getElementById("menu-list").innerHTML =  menuItem
 }
 getItems()
-renderOrderList()
+renderOrderList(orderItems)
 
 
