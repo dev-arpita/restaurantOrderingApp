@@ -58,6 +58,7 @@ main  {
 
 #menu-list {
     display: flex;
+    padding-top: 0;
 }
 
 .list-item,
@@ -237,7 +238,7 @@ color: #8B8B8B;
     display: none;
     background:#ECFDF5;
     padding: 2em;
-    margin: 2em auto;
+    margin: 0 auto 2em;
     }
 
  .message {

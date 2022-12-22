@@ -17,7 +17,7 @@ document.addEventListener("click", function(e){
         ProceedPayment()
     }
     else if(e.target.id === "payment-btn") {
-        e.preventDefault()
+
         thanksMsg()
     }
 
@@ -31,39 +31,37 @@ function ProceedPayment() {
     }, 1500)
 }
 /*Thanks Giving message */
-
-function thanksMsg() {
-
-     const thanksMsg = document.getElementById("msg-section")
-
-
+paymentForm.addEventListener("submit", function(e) {
+   e.preventDefault()
+    const thanksMsg = document.getElementById("msg-section")
     const paymentFormData = new FormData(paymentForm)
+    console.log(paymentForm)
     const userName = paymentFormData.get('user-name')
     console.log(userName)
+
     setTimeout(function(){
-    thanksMsg.style.display = "block"
+
       thanksMsg.innerHTML =
     `<p class="message">
     Thanks, ${userName}! Your order is on it's way!
     </p>
     `
-    }, 1500)
-
+    }, 1000)
+      thanksMsg.style.display = "block"
      document.getElementById("order-section").style.display ="none"
      document.getElementById("modal-container").style.display ="none"
 
-}
+})
 
 /*Add items*/
 
 function addToCart(itemId) {
-     orderItems.filter(item => {return item.id === itemId});
-     if(orderItems.filter(item => item.id === itemId).length > 0) {
+   const cartItem =  orderItems.filter(item => {return item.id == itemId})
+     if(cartItem.length > 0) {
         return;
-        }
-       orderItems.push(menuArray[itemId])
-        // console.log("orderArray",orderItems)
-        renderOrderList(orderItems)
+    }
+    orderItems.push(menuArray[itemId])
+    renderOrderList(orderItems)
  }
 
 /*Remove items from cart */
@@ -72,7 +70,6 @@ function removeItemFromCart(itemId){
     console.log( orderItems.splice(itemId, 1))
     renderOrderList(orderItems)
 }
-
 
 /*Render oreder item*/
 

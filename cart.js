@@ -27,7 +27,7 @@ const menuArray = [
 ]
 
 function addToCart(itemId) {
-    console.log('beforecheckcartItems', cartItems);
+    // console.log('beforecheckcartItems', cartItems);
      cartItems.filter(item => {
         console.log('item id', item.id)
         return item.id === itemId
